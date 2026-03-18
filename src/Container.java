@@ -27,7 +27,7 @@ public class Container{
     }
 
     public int getByIndex(int index){
-        if(size - 1 >= index && index > 0){
+        if(size - 1 >= index && index >= 0){
             Node current = head;
             int curIndex = 0;
             while(curIndex != index){
@@ -40,13 +40,22 @@ public class Container{
     }
 
     public void delete(int data){
-        if(head != null){
-            Node current = head;
-            while(current.next.data != data){
-                current = current.next;
-            }
-            current.next = current.next.next;
+        if (head == null) return;
+
+        if (head.data == data) {
+            head = head.next;
+            size--;
+            return;
         }
-        size--;
+
+        Node current = head;
+        while (current.next != null && current.next.data != data) {
+            current = current.next;
+        }
+
+        if (current.next != null) {
+            current.next = current.next.next;
+            size--;
+        }
     }
 }
